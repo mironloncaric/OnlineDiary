@@ -6,7 +6,7 @@ import Entries from '../Components/Entries'
 
 export default function ProfilePage(props) {
 
-    const url = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+    const url = (process.env.NODE_ENV === 'production') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
 
     const [entries, setEntries] = useState([])
     const [uname, setUname] = useState()
