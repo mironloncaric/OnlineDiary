@@ -8,11 +8,13 @@ import FollowItem from './FollowItem'
 
 export default function Suggestions() {
 
+    const url = (process.env.NODE_ENV === 'production') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+
     const { user } = useAuth()
     const [friends, setFriends] = useState([])
 
     const searchSuggestions = (word) => {
-        axios.post(`http://localhost:5000/friends-sugestions`, {
+        axios.post(`${url}/friends-sugestions`, {
             uid: user.uid,
             keyword: word
         })

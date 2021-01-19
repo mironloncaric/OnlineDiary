@@ -8,12 +8,14 @@ import { useAuth } from '../providers/UserProvider'
 
 export default function PostsPage(props) {
 
+    const url = (process.env.NODE_ENV === 'production') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+
     const [entries, setEntries] = useState([])
 
     const { user } = useAuth()
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/uposts/${user.uid}`)
+        axios.get(`${url}/uposts/${user.uid}`)
             .then(res => {
                 setEntries(res.data)
             })
