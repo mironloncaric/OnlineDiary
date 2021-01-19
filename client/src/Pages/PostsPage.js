@@ -30,6 +30,10 @@ export default function PostsPage(props) {
         <>
             <SecondaryNav />
             <div className="page-container">
+                {
+                    (process.env.NODE_ENV === 'production') &&
+                    <p>Great, success!</p>
+                }
                 <NewEntryForm setEntries={handleSetEntries} />
                 <hr />
                 <Entries entries={ entries } />
