@@ -8,7 +8,7 @@ import { useAuth } from '../providers/UserProvider'
 
 export default function PostsPage(props) {
 
-    const url = (process.env.NODE_ENV === 'production') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ediary1api.herokuapp.com' : 'http://localhost:5000'
 
     const [entries, setEntries] = useState([])
 

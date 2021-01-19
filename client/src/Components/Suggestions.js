@@ -8,7 +8,7 @@ import FollowItem from './FollowItem'
 
 export default function Suggestions() {
 
-    const url = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ediary1api.herokuapp.com' : 'http://localhost:5000' 
 
     const { user } = useAuth()
     const [friends, setFriends] = useState([])
