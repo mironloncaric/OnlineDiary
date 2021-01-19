@@ -1,0 +1,43 @@
+.entry-container {
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.entry-header {
+    padding-bottom:7px;
+    padding:7px;
+    border-bottom: solid 1px lightgray;
+    padding-top:6px;
+    padding-bottom: 6px;
+    padding-right: 3px;
+    padding-left: 12px;
+}
+.gray { background-color: lightgray; }
+.yellow { background-color: lightyellow; }
+.red { background-color: pink; }
+.blue { background-color: lightblue; }
+.green { background-color: lightgreen; }
+.entry-content {
+    padding-top:6px;
+    padding-bottom: 6px;
+    padding-right: 12px;
+    padding-left: 12px;
+}
+.date {
+    width: 70%;
+    text-align: right;
+    padding-right: 10px;
+}
+.emoji-entry {
+    width:20%;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.x {
+    background-color: transparent;
+    border-style: none;
+}

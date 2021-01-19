@@ -1,0 +1,14 @@
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.col {
+    padding: 0 3px;
+}
+.join-description, .signup-form {
+    padding: 40px;
+}
+.signup-form .row {
+    margin-bottom: 5px;
+}
