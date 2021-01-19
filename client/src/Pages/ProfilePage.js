@@ -6,19 +6,21 @@ import Entries from '../Components/Entries'
 
 export default function ProfilePage(props) {
 
+    const url = (process.env.NODE_ENV === 'development') ? 'http://localhost:5000' : 'http://ediary1api.herokuapp.com'
+
     const [entries, setEntries] = useState([])
     const [uname, setUname] = useState()
     
     const params = useParams()
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/uposts/${params.uid}`)
+        axios.get(`${url}/uposts/${params.uid}`)
             .then(res => {
                 console.log(res.data)
                 setEntries(res.data)
             })
             .catch(err => console.log(err))
-        axios.get(`http://localhost:5000/uname/${params.uid}`)
+        axios.get(`${url}/uname/${params.uid}`)
             .then(res => {
                 setUname(res.data.uname)
             })
