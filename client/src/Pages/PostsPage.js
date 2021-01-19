@@ -15,9 +15,10 @@ export default function PostsPage(props) {
     const { user } = useAuth()
 
     useEffect(() => {
-        axios.get(`http/uposts/${user.uid}`)
+        axios.get(`${url}/uposts/${user.uid}`)
             .then(res => {
-                setEntries(res.data)
+                if(!res.error)
+                    setEntries(res.data)
             })
             .catch(err => console.log(err))
     }, [])
