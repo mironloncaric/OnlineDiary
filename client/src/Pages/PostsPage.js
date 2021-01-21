@@ -7,7 +7,6 @@ import axios from 'axios'
 import { useAuth } from '../providers/UserProvider'
 import socketio from 'socket.io-client'
 const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
-const socket = socketio('http://localhost:5000')
 
 export default function PostsPage(props) {
 
@@ -17,6 +16,7 @@ export default function PostsPage(props) {
     const { user } = useAuth()
 
     useEffect(() => {
+        const socket = socketio('http://localhost:5000')
         socket.on(`notification/${user.uid}`, data => {
             console.log(data)
         })

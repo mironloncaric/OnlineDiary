@@ -5,7 +5,8 @@ import Axios from 'axios'
 import socketio from 'socket.io-client'
 
 import './NewEntryForm.css'
-const socket = socketio('http://localhost:5000')
+const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
+const socket = socketio(url)
 
 export default function NewEntryForm(props) {
 
@@ -15,12 +16,10 @@ export default function NewEntryForm(props) {
     const [location, setLocation] = useState({})
     const [country, setCountry] = useState(null)
 
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
 
     const { user, uname, followers } = useAuth()
 
     useEffect(() => {
-        console.log(followers)
         if('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
                 setLocation({
@@ -37,6 +36,7 @@ export default function NewEntryForm(props) {
                 setCountry(response.country)
             })
 
+            return socket.removeAllListeners()
     }, [])
 
     const handlePost = e => {
@@ -65,12 +65,12 @@ export default function NewEntryForm(props) {
         }).then(res => {
             props.setEntries(res.data)
             followers.forEach(follower => {
+                console.log('follower')
                 socket.emit(`notification`, {
                     notification:'New post',
                     uid:follower.uid
                 })
             })
-            socket.disconnect()
         })
         setHashtags('')
         setContent('')

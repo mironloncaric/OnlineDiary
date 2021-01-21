@@ -19,6 +19,7 @@ import MainNavigation from './Components/MainNavigation'
 
 import PrivateRoute from './Components/PrivateRoute'
 import { useEffect } from 'react'
+import socketio from 'socket.io-client'
 
 
 function App(props) {
