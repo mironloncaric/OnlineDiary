@@ -17,3 +17,6 @@
     margin: 5px auto;
     border-right: 1px lightgray solid;
 }
+@media only screen and (max-width:550px) {
+    .secondary-nav { width:100% }
+}

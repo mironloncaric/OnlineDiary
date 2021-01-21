@@ -1,0 +1,8 @@
+nav a {
+    color: white;
+    font-size: 22px;
+}
+nav a:hover {
+    color: white;
+    text-decoration: none;
+}

@@ -9,6 +9,15 @@
 .join-description, .signup-form {
     padding: 40px;
 }
+.join-description {
+    border-right: 1px solid lightgray;
+}
 .signup-form .row {
     margin-bottom: 5px;
+}
+@media only screen and (max-width: 730px) {
+    .join-container :nth-child(1) { display: block;}
+    .join-description {
+        border-right: 0px;
+    }
 }

@@ -1,0 +1,15 @@
+.follow-item span {
+    display: inline-block;
+    width: 85%;
+    font-weight: 700;
+}
+.follow-item button {
+    display: inline-block;
+    width: 15%;
+}
+.follow-item { 
+    margin-bottom: 3px; 
+    border: solid 1px lightgray;
+    border-radius: 6px;
+    padding: 5px;
+}

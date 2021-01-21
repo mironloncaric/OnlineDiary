@@ -5,16 +5,21 @@ import Entries from '../Components/Entries'
 import SecondaryNav from '../Components/SecondaryNav'
 import axios from 'axios'
 import { useAuth } from '../providers/UserProvider'
+import socketio from 'socket.io-client'
+const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
+const socket = socketio('http://localhost:5000')
 
 export default function PostsPage(props) {
 
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
 
     const [entries, setEntries] = useState([])
 
     const { user } = useAuth()
 
     useEffect(() => {
+        socket.on(`notification/${user.uid}`, data => {
+            console.log(data)
+        })
         axios.get(`${url}/uposts/${user.uid}`)
             .then(res => {
                 if(!res.error)

@@ -1,20 +1,26 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useAuth } from '../providers/UserProvider'
 import Axios from 'axios'
+import socketio from 'socket.io-client'
 
 import './NewEntryForm.css'
+const socket = socketio('http://localhost:5000')
 
 export default function NewEntryForm(props) {
 
     const [emoji, setEmoji] = useState("😃")
     const [content, setContent] = useState()
+    const [hashtags, setHashtags] = useState('')
     const [location, setLocation] = useState({})
+    const [country, setCountry] = useState(null)
 
-    const { user } = useAuth()
+    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
+
+    const { user, uname, followers } = useAuth()
 
     useEffect(() => {
+        console.log(followers)
         if('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
                 setLocation({
@@ -22,21 +28,52 @@ export default function NewEntryForm(props) {
                     lon: position.coords.longitude
                 })
             }, err => {
-                alert('Please enable geolocation')
+                console.log('No location')
             }, { maximumAge:10000, timeout:5000, enableHighAccuracy:true } )
         }
+        fetch('https://extreme-ip-lookup.com/json/')
+            .then(res => res.json())
+            .then(response => {
+                setCountry(response.country)
+            })
+
     }, [])
 
     const handlePost = e => {
+        let hashs = null
+        if(hashtags.trim().length > 0)
+            hashs = hashtags.split(" ")
+        console.log(hashs)
+        if(hashs)
+            hashs.forEach(hash => {
+                Axios.post(`${url}/hashtag`, {
+                    value: hash,
+                    country: country,
+                    uid: user.uid,
+                    uname: uname,
+                    emoji: emoji
+                })
+            })
         e.preventDefault()
-        Axios.post('http://localhost:5000/post', {
+        Axios.post(`${url}/post`, {
             uid: user.uid,
             emoji: emoji,
             location: location,
+            hashtags: hashtags,
+            uname: uname,
             postBody: content
         }).then(res => {
             props.setEntries(res.data)
+            followers.forEach(follower => {
+                socket.emit(`notification`, {
+                    notification:'New post',
+                    uid:follower.uid
+                })
+            })
+            socket.disconnect()
         })
+        setHashtags('')
+        setContent('')
     }
 
     return (
@@ -62,6 +99,13 @@ export default function NewEntryForm(props) {
                 rows={ 5 }
                 onChange={ e => setContent(e.target.value) }
                 value={ content }
+            />
+            <Form.Control 
+                as="textarea" 
+                rows={ 1 }
+                onChange={ e => setHashtags(e.target.value) }
+                value={ hashtags }
+                placeholder="#hashtags..."
             />
             <Button 
                 variant="info"

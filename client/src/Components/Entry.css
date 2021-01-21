@@ -41,3 +41,18 @@
     background-color: transparent;
     border-style: none;
 }
+.uname-entry {
+    background-color:rgba(234,234,234,1);
+}
+.entry-container .comment-section {
+    margin: 0 !important;
+    height: auto;
+    padding: 10px;
+}
+.entry-container .comment-section textarea {
+    margin-bottom: 10px;
+}
+.entry-header .spans button {
+    border: none;
+    background-color: transparent;
+}

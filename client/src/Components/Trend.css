@@ -1,0 +1,28 @@
+.trend-item-name {
+    width: 75%;
+    font-size: 16px;
+    margin-left: 10px;
+}
+.trend-item-emojis-stats {
+    display: inline-block;
+}
+.trend-item-emojis-stats div {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+}
+.trend-item-emojis-stats {
+    margin-right: 5px;
+}
+.trend-item-emojis-stats span {
+    font-size: 16px;
+}
+.trend-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgray;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 5px 0;
+}
