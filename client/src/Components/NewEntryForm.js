@@ -6,7 +6,7 @@ import socketio from 'socket.io-client'
 
 import './NewEntryForm.css'
 const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
-const socket = socketio(url)
+const socket = socketio.connect(url)
 
 export default function NewEntryForm(props) {
 

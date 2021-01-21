@@ -10,13 +10,12 @@ const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.heroku
 
 export default function PostsPage(props) {
 
-
     const [entries, setEntries] = useState([])
 
     const { user } = useAuth()
 
     useEffect(() => {
-        const socket = socketio('http://localhost:5000')
+        const socket = socketio.connect('http://localhost:5000')
         socket.on(`notification/${user.uid}`, data => {
             console.log(data)
         })
