@@ -15,7 +15,7 @@ export default function PostsPage(props) {
     const { user } = useAuth()
 
     useEffect(() => {
-        const socket = socketio.connect('http://localhost:5000')
+        const socket = socketio.connect(url)
         socket.on(`notification/${user.uid}`, data => {
             console.log(data)
         })
