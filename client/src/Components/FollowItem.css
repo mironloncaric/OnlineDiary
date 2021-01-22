@@ -1,15 +1,13 @@
-.follow-item span {
-    display: inline-block;
-    width: 85%;
+.follow-item div {
     font-weight: 700;
+    display:flex;
+    align-items: center;
 }
 .follow-item button {
-    display: inline-block;
-    width: 15%;
 }
 .follow-item { 
+    display:flex;
+    justify-content: space-between;
     margin-bottom: 3px; 
-    border: solid 1px lightgray;
-    border-radius: 6px;
     padding: 5px;
 }

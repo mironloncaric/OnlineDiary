@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css'
 import {
   BrowserRouter,
@@ -21,13 +22,25 @@ import PrivateRoute from './Components/PrivateRoute'
 import { useEffect } from 'react'
 import socketio from 'socket.io-client'
 
-
 function App(props) {
+  const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
 
-  const { user } = useAuth()
-
+  const { user, followers, handleSetNotifications, notifications } = useAuth()
+  
   useEffect(() => {
-  }, [])
+    if(user){
+      console.log('yo yo yo')
+      const socket = socketio.connect(url)
+      console.log('hello')
+      socket.on(`notification/${user.uid}`, data => {
+          console.log('hello')
+          handleSetNotifications(data)
+          console.log('bie')
+          console.log(notifications)
+      })
+    }
+  }, [user])
+
 
   return (
     <>

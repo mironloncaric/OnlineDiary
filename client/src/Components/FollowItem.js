@@ -24,7 +24,7 @@ export default function FollowItem(props) {
     return (
         <div>
             <div className="follow-item">
-                <span><Link to={`/profile/${props.friend.uid}`}>{ props.friend.uname }</Link></span>
+                <div><Link to={`/profile/${props.friend.uid}`}>{ props.friend.uname }</Link></div>
                 {
                     !following ?
                         <Button onClick={handleFollow} variant="info">Follow</Button>

@@ -35,8 +35,6 @@ export default function NewEntryForm(props) {
             .then(response => {
                 setCountry(response.country)
             })
-
-            return socket.removeAllListeners()
     }, [])
 
     const handlePost = e => {

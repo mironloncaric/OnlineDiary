@@ -12,13 +12,9 @@ export default function PostsPage(props) {
 
     const [entries, setEntries] = useState([])
 
-    const { user } = useAuth()
+    const { user, notifications, handleSetNotifications } = useAuth()
 
     useEffect(() => {
-        const socket = socketio.connect(url)
-        socket.on(`notification/${user.uid}`, data => {
-            console.log(data)
-        })
         axios.get(`${url}/uposts/${user.uid}`)
             .then(res => {
                 if(!res.error)
@@ -34,6 +30,11 @@ export default function PostsPage(props) {
     return (
         <>
             <SecondaryNav />
+            {
+                notifications.map(notif => {
+                    return <p>{notif}</p>
+                })
+            }
             <div className="page-container">
                 {
                     (process.env.NODE_ENV === 'production') &&
