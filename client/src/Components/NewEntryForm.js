@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
-import { useAuth } from '../providers/UserProvider'
-import Axios from 'axios'
-import socketio from 'socket.io-client'
+import React, { useEffect, useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { useAuth } from '../providers/UserProvider';
+import Axios from 'axios';
+import socketio from 'socket.io-client';
 
-import './NewEntryForm.css'
-const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
-const socket = socketio.connect(url)
+import './NewEntryForm.css';
+const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
+const socket = socketio.connect(url);
 
 export default function NewEntryForm(props) {
 
-    const [emoji, setEmoji] = useState("😃")
-    const [content, setContent] = useState()
-    const [hashtags, setHashtags] = useState('')
-    const [location, setLocation] = useState({})
-    const [country, setCountry] = useState(null)
+    const [emoji, setEmoji] = useState("😃");
+    const [content, setContent] = useState();
+    const [hashtags, setHashtags] = useState('');
+    const [location, setLocation] = useState({});
+    const [country, setCountry] = useState(null);
 
 
-    const { user, uname, followers } = useAuth()
+    const { user, uname, followers } = useAuth();
 
     useEffect(() => {
         if('geolocation' in navigator) {
@@ -25,17 +25,17 @@ export default function NewEntryForm(props) {
                 setLocation({
                     lat: position.coords.latitude,
                     lon: position.coords.longitude
-                })
+                });
             }, err => {
-                console.log('No location')
-            }, { maximumAge:10000, timeout:5000, enableHighAccuracy:true } )
+                console.log('No location');
+            }, { maximumAge:10000, timeout:5000, enableHighAccuracy:true } );
         }
         fetch('https://extreme-ip-lookup.com/json/')
             .then(res => res.json())
             .then(response => {
-                setCountry(response.country)
-            })
-    }, [])
+                setCountry(response.country);
+            });
+    }, []);
 
     const handlePost = e => {
         let hashs = null
@@ -67,11 +67,11 @@ export default function NewEntryForm(props) {
                 socket.emit(`notification`, {
                     notification:'New post',
                     uid:follower.uid
-                })
-            })
-        })
-        setHashtags('')
-        setContent('')
+                });
+            });
+        });
+        setHashtags('');
+        setContent('');
     }
 
     return (

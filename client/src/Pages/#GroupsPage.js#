@@ -1,0 +1,12 @@
+import React from 'react';
+import { useAuth } from '../providers/UserProvider'
+
+export default function GroupsPage() {
+    return (
+	<div className="page-container">
+          { 
+	    <h3>Your Groups:</h3>
+          }
+	</div>
+    );
+}

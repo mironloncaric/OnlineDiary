@@ -1,0 +1,9 @@
+import React from 'react';
+
+export default function GroupsPage() {
+    return (
+	<div className="page-container">
+          <h3>Your Groups:</h3>
+	</div>
+    );
+}

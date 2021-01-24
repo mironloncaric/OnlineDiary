@@ -1,22 +1,60 @@
 .secondary-nav {
-    margin: 0 auto;
-    height: 100%;
+    border: 1px lightgray solid;
     list-style-type: none;
-    width: 90%;
-    margin-bottom:20px;
-    max-width: 700px;
+    widht:20px !important;
+    position: fixed;
+    margin-top:20px;
+    margin-left:10px;
+    height:auto;
+    border-radius: 10px;
+    background-color:white;
+    opacity:0.7;
 }
-.secondary-nav a {
+.secondary-nav:hover {
+    opacity:1;
+}
+.secondary-nav-container a {
     color: #17a2b8;
-    width: 20%;
-    display: inline-block;
-    text-align: center;
-    border-left: 1px lightgray solid;
+    display:block;
+    text-align: left;
+    padding-bottom:10px;
+}
+.secondary-nav-container a span {
+    font-size:13px;
 }
 .secondary-nav-container {
-    margin: 5px auto;
-    border-right: 1px lightgray solid;
+    padding:10px;
 }
-@media only screen and (max-width:550px) {
-    .secondary-nav { width:100% }
+@media only screen and (max-width:850px) {
+    .secondary-nav-container a span {
+	display:none;
+    }
+}
+@media only screen and (max-width:500px) {
+    .secondary-nav {
+	width:90%;
+	margin:0 auto;
+	display:block;
+	position:relative;
+	opacity:1;
+	margine-top:10px !important;
+	border:none;
+    }
+    .secondary-nav-container {
+	display:flex;
+	justify-content: space-between;
+	height:auto;
+    }
+    .secondary-nav-container div {
+	color: #17a2b8;
+	padding:5px;
+	margin:0;
+	padding:0;
+	height:100%;
+    }
+    .secondary-nav-container a {
+	padding:5px;
+	margin:0;
+	padding:0;
+    }
 }

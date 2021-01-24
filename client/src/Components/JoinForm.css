@@ -1,4 +1,4 @@
-.row {
+.join-form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6,18 +6,35 @@
 .col {
     padding: 0 3px;
 }
-.join-description, .signup-form {
+.join-description, .signup-form, .dear-diary-for-therapists {
     padding: 40px;
 }
 .join-description {
     border-right: 1px solid lightgray;
-}
-.signup-form .row {
-    margin-bottom: 5px;
 }
 @media only screen and (max-width: 730px) {
     .join-container :nth-child(1) { display: block;}
     .join-description {
         border-right: 0px;
     }
+}
+.therapist-join-form {
+    width:50%;
+    margin: 0 auto;
+}
+.therapist-join-form .col {
+    width:50%;
+    display: inline-block;
+}
+@media only screen and (max-width: 700px) {
+    .therapist-join-form {
+	width:90% !important;
+    }
+}
+.dear-diary-for-therapists {
+    display:block !important;
+    background-color:#17a2b8
+}
+input {
+    margin-bottom:5px;
 }

@@ -1,16 +1,17 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { useAuth } from '../providers/UserProvider'
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { useAuth } from '../providers/UserProvider';
 
-import JoinForm from '../Components/JoinForm'
+import JoinForm from '../Components/JoinForm';
 
 export default function Join(props) {
 
-    const { user } = useAuth()
+    const { user } = useAuth();
 
-    return !user ?
+    return (!user ?
             <JoinForm />
             :
             <Redirect to="/post" />
+	   );
     
 }

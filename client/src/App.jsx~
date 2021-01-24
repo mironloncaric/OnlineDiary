@@ -15,6 +15,7 @@ import ProfilePage from './Pages/ProfilePage'
 import SettingsPage from './Pages/SettingsPage'
 import TrendsPage from './Pages/TrendsPage'
 import { useAuth } from './providers/UserProvider'
+import Notification from './Components/Notification';
 
 import MainNavigation from './Components/MainNavigation'
 
@@ -41,11 +42,28 @@ function App(props) {
     }
   }, [user])
 
+    useEffect(() => {
+	console.log(notifications)
+    }, [notifications])
+
 
   return (
     <>
       <BrowserRouter>
-        <MainNavigation />
+          <MainNavigation />
+          <div aria-atomic="true" style={{
+	  }}aria-live="polite" className="notifications-container">
+              <div style={{
+		      bottom:0,
+		      right:0
+		}}>
+		{
+		    notifications.map(notif => {
+			return <Notification body={notif} />
+		    })
+		}
+	      </div>
+	  </div>
         <Switch>
           <PrivateRoute path="/following" component={<FollowingPage />} />
           <PrivateRoute path="/post" component={<PostsPage />} />

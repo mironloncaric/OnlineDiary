@@ -1,0 +1,12 @@
+.notifications-container {
+    position:fixed;
+    bottom:10px;
+    right:30px;
+    width:50%;
+}
+.notification p {
+    font-size:14px;
+}
+.notification .alert-info {
+    padding-bottom: 1px;
+}

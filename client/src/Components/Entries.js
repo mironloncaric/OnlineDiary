@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Comments from './Comments'
 
 import './Entries.css'
 import Entry from './Entry'
 
 export default function Entries({ entries }) {
+
+    const [rerender, setRerender] = useState();
+
+    useEffect(() => {
+	setRerender(rerender+1);
+    }, [entries]);
 
     return (
         <div>
@@ -26,5 +32,5 @@ export default function Entries({ entries }) {
                 <h4 className="no-posts">No posts yet... 😕</h4>
             }
         </div>
-    )
+    );
 }

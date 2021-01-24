@@ -15,6 +15,7 @@ export default function UserProvider({ children }) {
     const [uname, setUname] = useState(null)
     const [followers, setFollowers] = useState(null)
     const [notifications, setNotifications] = useState([])
+    const [isTherapist, setIsTherapist] = useState(false)
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
 
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function UserProvider({ children }) {
                 axios.get(`${url}/uname/${user.uid}`)
                 .then(res => {
                     setUname(res.data.uname)
+		    setIsTherapist(res.data.isTherapist)
                 })
                 axios.get(`${url}/followers/${user.uid}`)
                 .then(res => {
@@ -53,7 +55,8 @@ export default function UserProvider({ children }) {
         handleSetUname,
         followers,
         handleSetNotifications,
-        notifications
+        notifications,
+	isTherapist
     }
 
     return (

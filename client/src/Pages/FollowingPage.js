@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import Entries from '../Components/Entries'
-import SecondaryNav from '../Components/SecondaryNav'
-import Suggestions from '../Components/Suggestions'
+import Entries from '../Components/Entries';
+import SecondaryNav from '../Components/SecondaryNav';
+import Suggestions from '../Components/Suggestions';
 
 export default function FollowingPage() {
 
-    const [entries, setEntries] = useState([])
-    const [location, setLocation] = useState(null)
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000' 
+    const [entries, setEntries] = useState([]);
+    const [location, setLocation] = useState(null);
+    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000' ;
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(position => {
-            console.log(position.coords)
-            setLocation(position.coords)
             axios.get(`${url}/uposts-by-location/${position.coords.latitude}/${position.coords.longitude}`)
                 .then(res => {
-                    setEntries(res.data)
+                    setEntries(res.data);
                 })
-                .catch(err => console.log(err))
-        })
-    }, [])
+                .catch(err => console.log(err));
+        });
+    }, []);
 
     return (
         <>
             <SecondaryNav />
             <div className="page-container">
-                <Suggestions />
+            <Suggestions />
+              <h3 style={{
+                  marginBottom:'20px'
+              }}>From People you Follow</h3>
                 {
                     (entries.length>0) ?
                     <Entries entries={ entries } />

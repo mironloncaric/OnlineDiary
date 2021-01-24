@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Form, Button } from 'react-bootstrap'
 import { HiOutlineX } from 'react-icons/hi'
 import { BiComment, BiRepost } from 'react-icons/bi'

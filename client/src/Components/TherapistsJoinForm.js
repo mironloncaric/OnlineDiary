@@ -15,20 +15,22 @@ export default function SignupForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
     const [unameAvabile, setUnameAvabile] = useState(null);
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
     const { handleSetUname } = useAuth();
 
     const history = useHistory();
 
     const createUser = (e) => {
-        if(password !== '' && email !== '' && confirmPassword !== '' && username !== '' && password === confirmPassword && unameAvabile==='avabile') {
+        if(password !== '' && email !== '' && confirmPassword !== '' && username !== '' && password === confirmPassword && unameAvabile==='avabile' && name !== '' && surname !== '') {
             firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
                 Axios.post(`${url}/username`, {
-		    name:null,
-		    surname:null,
+		    name:name,
+		    surname:surname,
                     uid:res.user.uid,
-		    isTherapist:false,
+                    isTherapist:true,
                     uname:username
                 }).then(res => {
                     if(res.data.error) {
@@ -69,7 +71,22 @@ export default function SignupForm() {
     };
 
     return (
-        <div>
+        <div className="therapist-join-form" style={{
+            marginTop:'40px',
+        }}>
+
+            <div className="row">
+                <div className="col">
+                  <Form.Control value={name} onChange={e => {
+                      setName(e.target.value);
+                  }} placeholder="Name" type="text" />
+                </div>
+                <div className="col">
+                  <Form.Control value={surname} onChange={e => {
+                      setSurname(e.target.value);
+                  }} placeholder="Surname" type="text" />
+                </div>
+            </div>
             <div className="row">
                 <div className="col">
                     <Form.Control className={emailError && 'is-invalid'} type="email" placeholder="Email" onChange={
@@ -119,7 +136,7 @@ export default function SignupForm() {
             </div>
             <div className="row">
                 <div className="col">
-                    <Button onClick={ createUser } variant="info">Submit</Button>
+                    <Button onClick={ createUser } variant="dark">Submit</Button>
                 </div>
             </div>
         </div>

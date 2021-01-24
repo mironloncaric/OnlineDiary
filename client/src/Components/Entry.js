@@ -1,48 +1,51 @@
-import React from 'react'
-import { Form, Button } from 'react-bootstrap'
-import { HiOutlineX } from 'react-icons/hi'
-import { BiComment, BiRepost } from 'react-icons/bi'
-import { HiOutlineEmojiHappy } from 'react-icons/hi'
-import { AiOutlineMessage } from 'react-icons/ai'
-import { useAuth } from '../providers/UserProvider'
+import React from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { HiOutlineX } from 'react-icons/hi';
+import { BiComment, BiRepost } from 'react-icons/bi';
+import { HiOutlineEmojiHappy } from 'react-icons/hi';
+import { AiOutlineMessage } from 'react-icons/ai';
+import { useAuth } from '../providers/UserProvider';
 
-import './Entry.css'
-import axios from 'axios'
-import Comments from './Comments'
+import './Entry.css';
+import axios from 'axios';
+import Comments from './Comments';
 
 export default function Entry(props) {
 
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
+    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
 
-    const [comment, setComment] = React.useState()
-    const [emoji, setEmoji] = React.useState()
-    const [showComment, setShowComment] = React.useState(0)
-    const [showEmoji, setShowEmoji] = React.useState(0)
-    const [rerender, setRerender] = React.useState()
+    const [comment, setComment] = React.useState();
+    const [emoji, setEmoji] = React.useState();
+    const [showComment, setShowComment] = React.useState(0);
+    const [showEmoji, setShowEmoji] = React.useState(0);
+    const [rerender, setRerender] = React.useState();
+    const { user, uname } = useAuth();
 
-    const { user, uname } = useAuth()
+    React.useEffect(() => {
+	setRerender(rerender+1);
+    }, [props.rerender]);
 
     const handleComment = e => {
-        e.preventDefault()
+        e.preventDefault();
         axios.post(`${url}/comment`, {
             uid:user.uid,
             uname: uname,
             post_id:props.id,
             content:comment
         }).then((res) => {
-            console.log(res)
-            setRerender(1)
-            setComment('')
-            setShowComment(0)
-        })
-    }
+            console.log(res);
+            setRerender(res);
+            setComment('');
+            setShowComment(0);
+        });
+    };
 
-    var color = ""
-    if(props.emoji === '😃') color = "yellow"
-    if(props.emoji === '😍') color = "red"
-    if(props.emoji === '😢') color = "blue"
-    if(props.emoji === '🤮') color = "green"
-    if(props.emoji === '😎') color = "gray"
+    var color = "";
+    if(props.emoji === '😃') color = "yellow";
+    if(props.emoji === '😍') color = "red";
+    if(props.emoji === '😢') color = "blue";
+    if(props.emoji === '🤮') color = "green";
+    if(props.emoji === '😎') color = "gray";
 
     return (
         <>
@@ -60,7 +63,6 @@ export default function Entry(props) {
                         display:'inline-block',
                         float:'right'
                     }}>
-                        <span className="date">{ props.date }</span>
                         <span className="emoji-entry">{ props.emoji }</span>
                         { (user.uid===props.uid) &&
                             <button className="x"><HiOutlineX /></button>
@@ -81,22 +83,22 @@ export default function Entry(props) {
                         <span><button
                             onClick={() => {
                                 if(showComment===1) {
-                                    setShowComment(0)
+                                    setShowComment(0);
                                 }
                                 if(showComment===0) {
-                                    setShowEmoji(0)
-                                    setShowComment(1)
+                                    setShowEmoji(0);
+                                    setShowComment(1);
                                 }
                             }}
                         ><BiComment /></button></span>
                         <span><button
                             onClick={() => {
                                 if(showEmoji===1) {
-                                    setShowEmoji(0)
+                                    setShowEmoji(0);
                                 }
                                 if(showEmoji===0) {
-                                    setShowComment(0)
-                                    setShowEmoji(1)
+                                    setShowComment(0);
+                                    setShowEmoji(1);
                                 }
                             }}
                         ><HiOutlineEmojiHappy /></button></span>
