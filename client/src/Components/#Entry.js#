@@ -18,7 +18,7 @@ export default function Entry(props) {
     const [emoji, setEmoji] = useState();
     const [showComment, setShowComment] = useState(0);
     const [showEmoji, setShowEmoji] = useState(0);
-    const [rerender, setRerender] = useState();
+    const [rerender, setRerender] = useState(1);
 
     const { user, uname } = useAuth();
 
@@ -35,7 +35,7 @@ export default function Entry(props) {
             content:comment
         }).then((res) => {
             console.log(res);
-            setRerender(res);
+            setRerender(rerender => rerender+1);
             setComment('');
             setShowComment(0);
         });

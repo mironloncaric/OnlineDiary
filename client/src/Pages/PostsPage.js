@@ -20,7 +20,7 @@ export default function PostsPage(props) {
         axios.get(`${url}/uposts/${user.uid}`)
             .then(res => {
                 if(!res.error)
-                    setEntries(res.data);
+                    setEntries(res.data.reverse());
             })
             .catch(err => console.log(err));
     }, []);

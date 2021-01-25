@@ -9,7 +9,7 @@ export default function Entries({ entries }) {
     const [rerender, setRerender] = useState();
 
     useEffect(() => {
-	setRerender(rerender+1);
+	setRerender(rerender => rerender+1);
     }, [entries]);
 
     return (
@@ -25,6 +25,7 @@ export default function Entries({ entries }) {
                             uname={ uname }
                             id={ _id }
                             uid={ uid }
+			rerender={rerender}
                         />
                     </div>
                 ))

@@ -14,6 +14,7 @@ export default function UserProvider({ children }) {
     const [user, setUser] = useState(null)
     const [uname, setUname] = useState(null)
     const [followers, setFollowers] = useState(null)
+    const [following, setFollowing] = useState(null)
     const [notifications, setNotifications] = useState([])
     const [isTherapist, setIsTherapist] = useState(false)
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
@@ -28,6 +29,11 @@ export default function UserProvider({ children }) {
 		    setIsTherapist(res.data.isTherapist)
                 })
                 axios.get(`${url}/followers/${user.uid}`)
+                .then(res => {
+                    console.log('set followers')
+                    setFollowers(res.data)
+                })
+                axios.get(`${url}/following/${user.uid}`)
                 .then(res => {
                     console.log('set followers')
                     setFollowers(res.data)

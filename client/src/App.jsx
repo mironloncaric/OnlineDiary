@@ -1,11 +1,12 @@
-import React from 'react'
-import './App.css'
+import React from 'react';
+import './App.css';
 import {
   BrowserRouter,
   Route,
   Redirect,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
+import axios from 'axios';
 
 
 import PostsPage from './Pages/PostsPage';
@@ -17,6 +18,8 @@ import TrendsPage from './Pages/TrendsPage';
 import { useAuth } from './providers/UserProvider';
 import Notification from './Components/Notification';
 import GroupsPage from './Pages/GroupsPage.jsx';
+import NotificationsPage from './Pages/NotificationsPage.jsx';
+import GroupItemPage from './Pages/GroupItemPage.jsx';
 
 import MainNavigation from './Components/MainNavigation';
 
@@ -32,9 +35,15 @@ function App(props) {
   useEffect(() => {
     if(user){
       const socket = socketio.connect(url)
-      socket.on(`notification/${user.uid}`, data => {
-          handleSetNotifications(data)
+	socket.on(`notification/${user.uid}`, data => {
+	    if(data != [])
+		handleSetNotifications(data)
       })
+	axios.get(`${url}/notification-by-reciever-id/${user.uid}`)
+	.then(res => {
+	    if(res != [])
+		handleSetNotifications(res.data)
+	})
     }
   }, [user])
 
@@ -47,16 +56,16 @@ function App(props) {
     <>
       <BrowserRouter>
           <MainNavigation />
-          <div aria-atomic="true" style={{
-	  }}aria-live="polite" className="notifications-container">
+          <div aria-atomic="true" aria-live="polite" className="notifications-container">
               <div style={{
 		      bottom:0,
 		      right:0
 		}}>
-		{
-		    notifications.map(notif => {
-			return <Notification body={notif} />
-		    })
+		  {
+		      notifications.length>0 &&
+			notifications.map(notif => {
+			    return <Notification body={notif} />
+			})
 		}
 	      </div>
 	  </div>
@@ -67,6 +76,8 @@ function App(props) {
           <PrivateRoute path="/trends" component={<TrendsPage />} />
           <PrivateRoute path="/profile/:uid" component={<ProfilePage />} />
           <PrivateRoute path="/groups" component={<GroupsPage />} />
+          <PrivateRoute path="/notifications" component={<NotificationsPage />} />
+          <PrivateRoute path="/group/:id" component={<GroupItemPage />} />
           <Route path="/join">
             <Join />
           </Route>
