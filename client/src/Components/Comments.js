@@ -12,6 +12,7 @@ export default function Comments(props) {
     const [showLoad, setShowLoad] = React.useState();
 
     useEffect(() => {
+        console.log('Comments rerendered')
         axios.get(`${url}/comment/${props.id}`)
         .then(res => {
             setComments(res.data);

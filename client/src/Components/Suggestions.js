@@ -14,7 +14,7 @@ export default function Suggestions() {
     const [friends, setFriends] = useState([])
 
     const searchSuggestions = (word) => {
-        axios.post(`${url}/friends-sugestions`, {
+        axios.post(`${url}/friends-of-friends/${user.uid}`, {
             uid: user.uid,
             keyword: word
         })
@@ -27,6 +27,7 @@ export default function Suggestions() {
 
     return (
         <div className="following-div">
+            <p>{ user.uid }</p>
             <h3 style={{width:'50%'}}>Friends of Friends</h3>
             <Form.Control onChange={e => {
                 searchSuggestions(e.target.value)
