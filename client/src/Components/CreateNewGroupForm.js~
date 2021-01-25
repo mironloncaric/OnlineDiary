@@ -1,0 +1,35 @@
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+
+import { useAuth } from '../providers/UserProvider.jsx';
+
+export default function CreateNewGroupForm() {
+
+    const { user, uname } = useAuth();
+
+    const [name, setName] = useState();
+    const [description, setDescription] = useState();
+
+    const createNewGroup = () => {
+	axios.post('/new-group', {
+	    creatorId:user.uid,
+	    creatorUname:uname,
+	    name:name,
+	    description:description
+	}).then(res => {
+	    console.log(res.data);
+	});
+	setDescription('');
+	setName('');
+    };
+
+    return (
+        <div>
+	    <h3>Create a New Group</h3>
+	    <Form.Control value={name} onChange={e => setName(e.target.value)} as="input" type="text" placeholder="Group Name" />
+	    <Form.Control value={description} onChange={e => setDescription(e.target.value) } as="textarea" placeholder="Group Description" />
+	    <Button onClick={ createNewGroup } variant="info">Submit</Button>
+	</div>
+    );
+}

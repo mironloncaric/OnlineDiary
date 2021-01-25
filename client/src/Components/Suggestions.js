@@ -1,17 +1,17 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-import './Suggestions.css'
-import { useAuth } from '../providers/UserProvider'
-import { Form, Button } from 'react-bootstrap'
-import FollowItem from './FollowItem'
+import './Suggestions.css';
+import { useAuth } from '../providers/UserProvider';
+import { Form, Button } from 'react-bootstrap';
+import FollowItem from './FollowItem';
 
 export default function Suggestions() {
 
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000' 
+    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000' ;
 
-    const { user } = useAuth()
-    const [friends, setFriends] = useState([])
+    const { user, following } = useAuth();
+    const [friends, setFriends] = useState([]);
 
     const searchSuggestions = (word) => {
         axios.post(`${url}/friends-of-friends/${user.uid}`, {

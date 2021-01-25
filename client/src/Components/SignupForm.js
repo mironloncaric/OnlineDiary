@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import firebase from 'firebase';
 import { useHistory } from 'react-router-dom';
@@ -15,37 +15,50 @@ export default function SignupForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
     const [unameAvabile, setUnameAvabile] = useState(null);
+    const [country, setCountry] = useState(null);
+
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
     const { handleSetUname } = useAuth();
 
     const history = useHistory();
 
-    const createUser = (e) => {
-        if(password !== '' && email !== '' && confirmPassword !== '' && username !== '' && password === confirmPassword && unameAvabile==='avabile') {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(res => {
-                Axios.post(`${url}/username`, {
-		    name:null,
-		    surname:null,
-                    uid:res.user.uid,
-		    isTherapist:false,
-                    uname:username
-                }).then(res => {
-                    if(res.data.error) {
-                        console.log(res.error);
-                    } else {
-                        handleSetUname(username);
-                        history.push('/post');
-                    }
-                });
-            })
-            .catch(err => {
-                console.log(err);
-                if(err.code === "auth/email-already-in-use") 
-                    setEmailError('Email is already in use...');
-                if(err.code === "auth/invalid-email") 
-                    setEmailError('The email address is badly formatted...');
+    useEffect(() => {
+        fetch('https://extreme-ip-lookup.com/json/')
+            .then(res => res.json())
+            .then(response => {
+                setCountry(response.country);
             });
+    })
+
+    const createUser = (e) => {
+        e.preventDefault();
+        if(country && country !== '') {
+            if(password !== '' && email !== '' && confirmPassword !== '' && username !== '' && password === confirmPassword && unameAvabile==='avabile') {
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(res => {
+                    Axios.post(`${url}/username`, {
+                        name:null,
+                        surname:null,
+                        uid:res.user.uid,
+                        country:country,
+                        isTherapist:false,
+                        uname:username
+                    }).then(res => {
+                        if(res.data.error) {
+                            console.log(res.error);
+                        } else {
+                            handleSetUname(username);
+                            history.push('/post');
+                        }
+                    });
+                })
+                .catch(err => {
+                    if(err.code === "auth/email-already-in-use") 
+                        setEmailError('Email is already in use...');
+                    if(err.code === "auth/invalid-email") 
+                        setEmailError('The email address is badly formatted...');
+                });
+            }
         }
     };
 

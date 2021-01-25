@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import firebase from 'firebase';
 import { useHistory } from 'react-router-dom';
@@ -17,18 +17,28 @@ export default function SignupForm() {
     const [unameAvabile, setUnameAvabile] = useState(null);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
+    const [country, setCountry] = useState('');
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
     const { handleSetUname } = useAuth();
 
     const history = useHistory();
+
+    useEffect(() => {
+        fetch('https://extreme-ip-lookup.com/json/')
+            .then(res => res.json())
+            .then(response => {
+                setCountry(response.country);
+            });
+    })
 
     const createUser = (e) => {
         if(password !== '' && email !== '' && confirmPassword !== '' && username !== '' && password === confirmPassword && unameAvabile==='avabile' && name !== '' && surname !== '') {
             firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(res => {
                 Axios.post(`${url}/username`, {
-		    name:name,
-		    surname:surname,
+                    name:name,
+                    surname:surname,
+                    country:country,
                     uid:res.user.uid,
                     isTherapist:true,
                     uname:username

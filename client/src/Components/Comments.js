@@ -12,17 +12,12 @@ export default function Comments(props) {
     const [showLoad, setShowLoad] = React.useState();
 
     useEffect(() => {
-        console.log('Comments rerendered')
-        axios.get(`${url}/comment/${props.id}`)
+        axios.get(`${url}/comment/${props.pid}`)
         .then(res => {
             setComments(res.data);
         });
     }, [props.rerender]);
 
-    useEffect(() => {
-	if(comments.length > 1)
-	    setShowLoad(1);
-    }, [comments]);
     useEffect(() => {
 	if(comments.length > 1)
 	    setShowLoad(1);

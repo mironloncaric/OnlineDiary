@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BsPlusCircleFill, BsFillPeopleFill } from 'react-icons/bs';
 import { FaUserFriends, FaHashtag, FaCog } from 'react-icons/fa';
 import { GoGraph } from 'react-icons/go';
+import { RiNotification2Line } from 'react-icons/ri';
 
 import './SecondaryNav.css';
 
@@ -16,6 +17,7 @@ export default function SecondaryNav() {
                 <div><Link to="/trends"><FaHashtag /> <span>Trends</span></Link></div>
                 <div><Link to="/settings"><FaCog /> <span>Settings</span></Link></div>
                 <div><Link to="/groups"><BsFillPeopleFill /> <span>Groups</span></Link></div>
+                <div><Link to="/notifications"><RiNotification2Line /> <span>Notifications</span></Link></div>
             </div>
         </div>
     );
