@@ -1,36 +1,34 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../providers/UserProvider'
-import './FollowItem.css'
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../providers/UserProvider';
+import './FollowItem.css';
 
 export default function FollowItem(props) {
 
-    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
-    const { user, following } = useAuth()
-    const [isFollowing, setIsFollowing] = useState(0)
+    const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
+    const { user, following } = useAuth();
+    const [isFollowing, setIsFollowing] = useState(0);
 
     useEffect(() => {
         if(following) {
             if(following.find(element => {
-                console.log(element.followingId);
-                console.log(props.friend.uid);
-                return element.followingId===props.friend.uid
+                return element.followingId===props.friend.uid;
             }))
                 setIsFollowing(1);
         }
-    }, [])
+    }, []);
 
     const handleFollow = () => {
         axios.post(`${url}/follow`, {
             uid:user.uid,
             followingId:props.friend.uid
         }).then(() => {
-            setIsFollowing(1)
-        })
-    }
+            setIsFollowing(1);
+        });
+    };
 
     return (
         <div>

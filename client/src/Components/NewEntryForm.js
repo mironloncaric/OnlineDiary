@@ -38,10 +38,9 @@ export default function NewEntryForm(props) {
     }, []);
 
     const handlePost = e => {
-        let hashs = null
+        let hashs = null;
         if(hashtags.trim().length > 0)
-            hashs = hashtags.split(" ")
-        console.log(hashs)
+            hashs = hashtags.split(" ");
         if(hashs)
             hashs.forEach(hash => {
                 Axios.post(`${url}/hashtag`, {
@@ -50,9 +49,9 @@ export default function NewEntryForm(props) {
                     uid: user.uid,
                     uname: uname,
                     emoji: emoji
-                })
-            })
-        e.preventDefault()
+                });
+            });
+        e.preventDefault();
         Axios.post(`${url}/post`, {
             uid: user.uid,
             emoji: emoji,
@@ -61,18 +60,24 @@ export default function NewEntryForm(props) {
             uname: uname,
             postBody: content
         }).then(res => {
-            props.setEntries(res.data)
             followers.forEach(follower => {
-                console.log('follower')
                 socket.emit(`notification`, {
                     notification:'New post',
                     uid:follower.uid
                 });
+		Axios.post(`${url}/new-notification`, {
+		    creatorId:user.uid,
+		    uname: uname,
+		    recieverId:follower.uid,
+		    body:`${uname} Created a New Post Entry`,
+		    type:`New post`,
+		    groupId:null
+		});
             });
         });
         setHashtags('');
         setContent('');
-    }
+    };
 
     return (
         <div>

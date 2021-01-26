@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsPlusCircleFill, BsFillPeopleFill } from 'react-icons/bs';
-import { FaUserFriends, FaHashtag, FaCog } from 'react-icons/fa';
+import { FaUserFriends, FaHashtag, FaCog, FaGlobeEurope } from 'react-icons/fa';
 import { GoGraph } from 'react-icons/go';
 import { RiNotification2Line } from 'react-icons/ri';
 
@@ -13,6 +13,7 @@ export default function SecondaryNav() {
             <div className="secondary-nav-container">
                 <div><Link to="/post"><BsPlusCircleFill /> <span>Post</span></Link></div>
                 <div><Link to="/following"><FaUserFriends /> <span>Following</span></Link></div>
+                <div><Link to="/global"><FaGlobeEurope /> <span>Global</span></Link></div>
                 <div><Link to="/stats"><GoGraph /> <span>Stats</span></Link></div>
                 <div><Link to="/trends"><FaHashtag /> <span>Trends</span></Link></div>
                 <div><Link to="/settings"><FaCog /> <span>Settings</span></Link></div>

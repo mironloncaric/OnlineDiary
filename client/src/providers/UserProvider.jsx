@@ -21,6 +21,7 @@ export default function UserProvider({ children }) {
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
+	    console.log('Auth state changed:', user)
             setUser(user)
             if(user) {
                 axios.get(`${url}/uname/${user.uid}`)
@@ -37,17 +38,21 @@ export default function UserProvider({ children }) {
                 .then(res => {
                     setFollowing(res.data)
                 });
-		axios.get(`${url}/notification-by-reciever-id/${user.uid}`)
-		     .then(res => {
-			 setNotifications(res.data)
-		})
+		notificationsByRecieverId();
             }
         })
     }, [])
 
+    const notificationsByRecieverId = () => {
+	axios.get(`${url}/notification-by-reciever-id/${user.uid}`)
+		.then(res => {
+		    setNotifications(res.data)
+	})
+    };
+
     const handleSetUname = username => {
         setUname(username)
-    }
+    };
 
     const handleSetNotifications = notification => {
 	if(notification.length>0)
@@ -63,7 +68,8 @@ export default function UserProvider({ children }) {
         handleSetNotifications,
         notifications,
         country,
-        isTherapist
+        isTherapist,
+	notificationsByRecieverId
     }
 
     return (

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 
 export default function Name(props) {
 
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
+
+    const [isIn, setIsIn] = useState(null);
+
+    useEffect(() => {
+	
+    }, []);
 
     const handleInvitePerson = () => {
 	axios.post(`${url}/new-notification`, {
@@ -16,7 +22,7 @@ export default function Name(props) {
 	    groupId:props.group._id
 	}).then(res => {
 	    console.log('Notification:', res.data);
-	})
+	});
     };
 
     return (

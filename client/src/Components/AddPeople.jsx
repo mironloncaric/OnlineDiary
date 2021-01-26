@@ -19,6 +19,7 @@ export default function AddPeople(props) {
     const getPeople = keyword => {
         console.log(country)
         axios.post(`${url}/get-people-by-country`, {
+	    id:user.uid,
             country:country,
             keyword:keyword
         }).then(res => {

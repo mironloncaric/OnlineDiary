@@ -10,20 +10,21 @@ export default function NotificationPageItem(props) {
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
     const { user, uname } = useAuth();
 
+    useEffect(() => {
+	console.log(props.notification)
+    }, [])
+
     const joinGroup = () => {
 	axios.post(`${url}/group-member`, {
 	    uid:user.uid,
 	    uname:uname,
 	    groupId:props.notification.groupId
 	})
-	     .then(res => {
-		 console.log('response:', res)
-	     });
 	axios.delete(`${url}/notification/${props.notification._id}`)
 	     .then(res => {
-		 console.log('delete:', res);
+		 props.removeItem()
 	});
-    }
+    };
 
     return (
 	<div className="notification-page-item">

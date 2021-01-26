@@ -6,10 +6,11 @@ import NotificationPageItem from '../Components/NotificationPageItem';
 
 export default function NotificationsPage() {
 
-    const { notifications } = useAuth();
+    const { notifications, notificationsByRecieverId } = useAuth();
 
     const removeItem = key => {
-	
+	notificationsByRecieverId();
+	console.log('These are notifications:', notifications)
     }
     
     return (
@@ -19,12 +20,13 @@ export default function NotificationsPage() {
 		<h3>Notifications Page</h3>
 		<div>
 		    {
-			notifications ?
-			notifications.map((notification, key) => (
+			notifications[0] ?
+			notifications[0].map((notification, key) => (
 			    <NotificationPageItem
 				key={key}
 				id={key}
 				notification={notification}
+				removeItem={removeItem}
 			    />
 			))
 			:
