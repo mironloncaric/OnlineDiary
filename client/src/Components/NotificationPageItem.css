@@ -1,0 +1,22 @@
+.notification-page-item {
+    border: lightgray solid 1px;
+    margin-top:10px;
+}
+.notification-page-item-header {
+    border-bottom: lightgray solid 1px;
+    padding: 1px 5px;
+    font-size:15px;
+    font-weight:800;
+    background-color:lightgray;
+}
+.notification-page-item-body {
+    padding: 9px 5px;
+    font-size:13px;
+    display:flex;
+    justify-content:space-between !important;
+    align-items: center;
+}
+.notification-page-item-body button {
+    padding:1px 7px;
+}
+

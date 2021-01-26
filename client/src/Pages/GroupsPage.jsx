@@ -8,20 +8,35 @@ import axios from 'axios';
 
 export default function GroupsPage() {
 
-	const { isTherapist, user } = useAuth();
+    const { isTherapist, user } = useAuth();
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000';
 	
-	const [groups, setGroups] = useState();
+	const [groups, setGroups] = useState([]);
 
-	useEffect(() => {
-		axios.get(`${url}/groups-by-creator/${user.uid}`)
-		.then(res => {
-			setGroups(res.data);
-		})
-	}, [])
-	useEffect(() => {
-		console.log('groups:', groups)
-	}, [groups])
+    useEffect(() => {
+	if(isTherapist) {
+	    axios.get(`${url}/groups-by-creator/${user.uid}`)
+	    .then(res => {
+		    setGroups(res.data);
+	    });
+	} else {
+	    axios.get(`${url}/groups-by-participant/${user.uid}`)
+		 .then(res => {
+		     console.log('Find groups:', res.data);
+		     res.data.forEach(item => {
+			 axios.get(`${url}/group-by-id/${item.groupId}`)
+			      .then(response => {
+				  console.log(response.data);
+				  setGroups(groups => [...groups, response.data]);
+			 })
+			 
+		     })
+	    })
+	}
+    }, []);
+    useEffect(() => {
+	console.log('group:', groups);
+    }, [groups])
 
     return (
 	<div>
