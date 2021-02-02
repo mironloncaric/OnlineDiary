@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { useAuth } from '../providers/UserProvider.jsx';
 import FollowItem from '../Components/FollowItem';
+import SecondaryNav from '../Components/SecondaryNav';
 
 export default function GlobalPage() {
 
@@ -10,29 +11,32 @@ export default function GlobalPage() {
     const { user } = useAuth();
 
     useEffect(() => {
-	console.log('This is the user:', user)
+        console.log('This is the user:', user)
     }, [user])
 
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
-	axios.post(`${url}/get-all-people`, {
-	    id:user.uid
-	})
-	     .then(res => {
-		 setUsers(res.data)
-		 console.log('Users:', res)
-	    })
+        axios.post(`${url}/get-all-people`, {
+            id:user.uid
+        })
+            .then(res => {
+                setUsers(res.data)
+                console.log('Users:', res)
+            })
     }, [])
 
     return (
-	<div className="page-container">
-	    <h3>Global:</h3>
-	    {
-		users && users.map(user => (
-		    <FollowItem friend={user} />
-		))
-	    }
-	</div>
+        <>
+            <SecondaryNav />
+            <div className="page-container">
+                <h3>Global:</h3>
+                {
+                    users && users.map(user => (
+                        <FollowItem friend={user} />
+                    ))
+                }
+            </div>
+        </>
     );
 }

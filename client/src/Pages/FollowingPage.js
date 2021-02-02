@@ -4,21 +4,21 @@ import axios from 'axios';
 import Entries from '../Components/Entries';
 import SecondaryNav from '../Components/SecondaryNav';
 import Suggestions from '../Components/Suggestions';
+import { useAuth } from '../providers/UserProvider';
 
 export default function FollowingPage() {
 
+    const { user } = useAuth();
     const [entries, setEntries] = useState([]);
     const [location, setLocation] = useState(null);
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000' ;
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(position => {
-            axios.get(`${url}/uposts-by-location/${position.coords.latitude}/${position.coords.longitude}`)
-                .then(res => {
-                    setEntries(res.data);
-                })
-                .catch(err => console.log(err));
-        });
+        axios.get(`${url}/following-posts/${user.uid}`)
+            .then(res => {
+                setEntries(res.data);
+            })
+            .catch(err => console.log(err));
     }, []);
 
     return (
@@ -33,10 +33,7 @@ export default function FollowingPage() {
                     (entries.length>0) ?
                     <Entries entries={ entries } />
                     :
-                    !location ?
-                        <h4 className="no-posts">Please turn on location to view other's posts</h4>
-                        :
-                        <h4 className="no-posts">No posts to show...</h4>
+                    <h4 className="no-posts">No posts to show...</h4>
                 }
             </div>
         </>
