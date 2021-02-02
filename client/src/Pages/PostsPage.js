@@ -28,14 +28,14 @@ export default function PostsPage(props) {
 
     const handleSetEntries = (newEntrie) => {
         setEntries(entires => [newEntrie, ...entries]);
-	return () => setValue(value => value + 1); // update the state to force render
+        return () => setValue(value => value + 1); // update the state to force render
     };
 
     return (
         <>
           <SecondaryNav />
           <div className="page-container">
-                <NewEntryForm setEntries={handleSetEntries} />
+                <NewEntryForm group={null} setEntries={handleSetEntries} />
                 <hr />
                 <Entries entries={ entries } />
             </div>

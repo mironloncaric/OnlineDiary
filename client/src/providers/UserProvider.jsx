@@ -56,7 +56,7 @@ export default function UserProvider({ children }) {
 
     const handleSetNotifications = notification => {
 	if(notification.length>0)
-	    setNotifications(notifications => [...notifications, notification])
+	    setNotifications(notification)
     }
 
     const value = {

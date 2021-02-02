@@ -10,8 +10,7 @@ export default function Notification(props) {
 	show &&
 	    <Toast onClose={() => setShow(false)}>
 		<Toast.Header>
-		    <strong className="mr-auto">Bootstrap</strong>
-		    <small>just now</small>
+		    <strong className="mr-auto">{props.notification.body}</strong>
 		</Toast.Header>
 		<Toast.Body>See? Just like this.</Toast.Body>
 	    </Toast>

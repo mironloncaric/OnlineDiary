@@ -25,7 +25,7 @@ export default function Entries({ entries }) {
                             uname={ uname }
                             id={ _id }
                             uid={ uid }
-			rerender={rerender}
+                            rerender={rerender}
                         />
                     </div>
                 ))

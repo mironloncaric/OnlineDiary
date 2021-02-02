@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import AddPersonItem from './AddPersonItem';
+import './AddPeople.css';
 
 import { useAuth } from '../providers/UserProvider.jsx';
 
@@ -14,10 +15,10 @@ export default function AddPeople(props) {
 
     useEffect(() => {
         getPeople('');
-    }, [])
+    }, []);
 
     const getPeople = keyword => {
-        console.log(country)
+        console.log(country);
         axios.post(`${url}/get-people-by-country`, {
 	    id:user.uid,
             country:country,
@@ -25,33 +26,30 @@ export default function AddPeople(props) {
         }).then(res => {
             setPeople(res.data);
         });
-    }
+    };
 
     return (
         <div>
-            <div className="row">
-                <div className="col">
-                    <Form.Control onChange={e => {
-			getPeople(e.target.value);
-		    }} as="input" type="text" placeholder="Search people" />
-                </div>
-                <div className="col">
-                    <Button variant="info">Submit</Button>
-                </div>
-            </div>
+          <br/>
+            <Form.Control onChange={e => {
+                getPeople(e.target.value);
+            }} style={{
+                width:'50%'
+            }} as="input" type="text" placeholder="Search people" />
             <div>
-		{
-		    people && people.map((person, key) => (
-			<AddPersonItem
-			    key={key}
-			    user={user}
-			    person={person}
-			    uname={uname}
-			    group={props.group}
-			/>
-		    ))
-		}
+                {
+                    people && people.map((person, key) => (
+                        <AddPersonItem
+                            key={key}
+                            user={user}
+                            person={person}
+                            uname={uname}
+                            group={props.group}
+                        />
+                    ))
+                }
             </div>
+          <br/>
         </div>
     );
 }

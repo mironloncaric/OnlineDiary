@@ -21,10 +21,10 @@ export default function JoinForm() {
             </div>
           <div className="row dear-diary-for-therapists">
             <div className="col">
-	      <h3 style={{
+              <h3 style={{
                   color:'white'
               }}>DearDiary for Mental Health Professionals:</h3>
-	      <p style={{
+              <p style={{
                   color:'white'
               }}>Use DearDiary website to manage groups of patients...</p>
               <div className="therapists-signup">

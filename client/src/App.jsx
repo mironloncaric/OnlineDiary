@@ -35,22 +35,22 @@ function App(props) {
   
   useEffect(() => {
     if(user){
-      const socket = socketio.connect(url)
-	socket.on(`notification/${user.uid}`, data => {
-	    if(data != [])
-		handleSetNotifications(data)
-      })
-	axios.get(`${url}/notification-by-reciever-id/${user.uid}`)
-	.then(res => {
-	    if(res != [])
-		handleSetNotifications(res.data)
-	})
+      const socket = socketio.connect(url);
+    socket.on(`notification/${user.uid}`, data => {
+        if(data != [])
+          handleSetNotifications(data);
+    });
+    axios.get(`${url}/notification-by-reciever-id/${user.uid}`)
+    .then(res => {
+        if(res != [])
+          handleSetNotifications(res.data);
+    });
     }
-  }, [user])
+  }, [user]);
 
     useEffect(() => {
-	console.log(notifications)
-    }, [notifications])
+      console.log('notifications:', notifications);
+    }, [notifications]);
 
 
   return (
@@ -59,17 +59,17 @@ function App(props) {
           <MainNavigation />
           <div aria-atomic="true" aria-live="polite" className="notifications-container">
               <div style={{
-		      bottom:0,
-		      right:0
-		}}>
-		  {
-		      notifications.length>0 &&
-			notifications.map(notif => {
-			    return <Notification body={notif} />
-			})
-		}
-	      </div>
-	  </div>
+                bottom:0,
+                right:0
+          }}>
+            {
+                notifications.length>0 &&
+            notifications.map((notif, key) => {
+                return <Notification key={key} notification={notif} />
+            })
+          }
+              </div>
+          </div>
         <Switch>
           <PrivateRoute path="/following" component={<FollowingPage />} />
           <PrivateRoute path="/post" component={<PostsPage />} />

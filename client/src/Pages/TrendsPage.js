@@ -11,7 +11,7 @@ export default function TrendsPage() {
     const url = (process.env.NODE_ENV === 'production') ? 'https://ediary1api.herokuapp.com' : 'http://localhost:5000'
     const { user } = useAuth()
 
-    const [userTrends, setUserTrends] = useState(null)
+    const [userTrends, setUserTrends] = useState([])
 
     const handleUserTrends = () => {
         axios.get(`${url}/trends-by-id/${user.uid}`)

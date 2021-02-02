@@ -15,7 +15,7 @@ export default function NewEntryForm(props) {
     const [hashtags, setHashtags] = useState('');
     const [location, setLocation] = useState({});
     const [country, setCountry] = useState(null);
-
+    const [username, setUsername] = useState('');
 
     const { user, uname, followers } = useAuth();
 
@@ -47,6 +47,7 @@ export default function NewEntryForm(props) {
                     value: hash,
                     country: country,
                     uid: user.uid,
+                    group: props.group,
                     uname: uname,
                     emoji: emoji
                 });
@@ -58,8 +59,10 @@ export default function NewEntryForm(props) {
             location: location,
             hashtags: hashtags,
             uname: uname,
+            group:props.group,
             postBody: content
         }).then(res => {
+	    props.setEntries(res.data);
             followers.forEach(follower => {
                 socket.emit(`notification`, {
                     notification:'New post',
