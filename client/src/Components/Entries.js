@@ -15,7 +15,7 @@ export default function Entries({ entries }) {
     return (
         <div>
             { (entries.length>0) ?
-                entries.map(({ postBody, uname, hashtags, emoji, date, uid, _id }, id) => (
+                entries.map(({ postBody, uname, hashtags, emoji, date, uid, _id, spotifyURI }, id) => (
                     <div key={ id }>
                         <Entry
                             date={ date }
@@ -26,6 +26,7 @@ export default function Entries({ entries }) {
                             id={ _id }
                             uid={ uid }
                             rerender={rerender}
+                            spotifyURI={spotifyURI}
                         />
                     </div>
                 ))
