@@ -13,7 +13,8 @@ export default function JoinForm() {
             <div className="row join-form">
                 <div className="col join-description">
                     <h2>Online Diary</h2>
-                    <p>Exercitation ad culpa aliqua ullamco consequat laboris excepteur cillum aliquip amet esse nostrud anim. Mollit labore pariatur est nulla reprehenderit adipisicing Lorem pariatur qui quis duis occaecat anim ullamco. Fugiat exercitation est sint reprehenderit eu excepteur.</p>
+                    <p>Social Network inspired by the concept of a personal diary.</p>
+	    	<p>Express yourself explicitly through emojis and your favourite music...</p>
                 </div>
                 <div className="col signup-form">
                     <SignupForm />
