@@ -19,8 +19,8 @@ export default function Comments(props) {
     }, [props.rerender]);
 
     useEffect(() => {
-	if(comments.length > 1)
-	    setShowLoad(1);
+        if(comments.length > 1)
+            setShowLoad(1);
     }, [comments]);
 
     return (
@@ -69,6 +69,6 @@ export default function Comments(props) {
                     }}>Load more</Button>
                 </div>
             }
-	</div>
+        </div>
     );
 }

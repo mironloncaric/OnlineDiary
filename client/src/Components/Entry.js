@@ -19,11 +19,15 @@ export default function Entry(props) {
     const [showComment, setShowComment] = useState(0);
     const [showEmoji, setShowEmoji] = useState(0);
     const [rerender, setRerender] = useState();
+    const [likes, setLikes] = useState([0, 0, 0, 0, 0]);
+    const [currentLike, setCurrentLike] = useState()
 
     const { user, uname } = useAuth();
 
     useEffect(() => {
-	setRerender(rerender+1);
+        setRerender(rerender+1);
+        getLikes();
+        handleCurrentLike();
     }, [props.rerender]);
 
     const handleComment = e => {
@@ -34,12 +38,33 @@ export default function Entry(props) {
             post_id:props.id,
             content:comment
         }).then((res) => {
-            console.log(res);
             setRerender(res);
             setComment('');
             setShowComment(0);
         });
     };
+
+    const handleCurrentLike = () => {
+        axios.get(`${url}/current-like/${props.id}/${user.uid}`)
+             .then(res => setCurrentLike(res.data));
+    }
+
+    const getLikes = () => {
+        axios.get(`${url}/likes/${props.id}/${user.uid}`)
+             .then(res => setLikes(res.data))
+             .catch(err => console.log(err));
+    }
+
+    const handleLike = (emoji) => {
+        axios.post(`${url}/like`, {
+            creatorUid: user.uid,
+            userId: props.uid,
+            pid: props.id,
+            emoji: emoji
+        })
+             .catch(err => console.log(err));
+        handleCurrentLike();
+    }
 
     var color = "";
     if(props.emoji === '😃') color = "yellow";
@@ -71,6 +96,14 @@ export default function Entry(props) {
                     </div>
                 </div>
                 <p className="entry-content">{ props.content }</p>
+              {
+                  props.spotifyURI &&
+                    <iframe style={{
+                        width:"100%",
+                        margin:0,
+                        height:86.5
+                    }} src={props.spotifyURI} frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+              }
                 <div style={{
                     borderTop:'1px solid lightgray'
                 }} className={`${color} entry-header`}>
@@ -105,6 +138,7 @@ export default function Entry(props) {
                         ><HiOutlineEmojiHappy /></button></span>
                         <span><button><AiOutlineMessage /></button></span>
                         <span><button><BiRepost /></button></span>
+                      <span>{currentLike}</span>
                     </div>
                 </div>
                 {
@@ -122,11 +156,26 @@ export default function Entry(props) {
                 {
                     showEmoji === 1 &&
                     <div className="comment-section">
-                        <span>😃</span>
-                        <span>😍</span>
-                        <span>😢</span>
-                        <span>🤮</span>
-                        <span>😎</span>
+                        <a href="" onClick={e => {
+                            e.preventDefault();
+                            handleLike('😃');
+                        }}>😃</a><span>{likes[0]} </span>
+                        <a href="" onClick={e => {
+                            e.preventDefault();
+                            handleLike('😍');
+                        }}>😍</a><span>{likes[1]} </span>
+                        <a href="" onClick={e => {
+                            e.preventDefault();
+                            handleLike('😢');
+                        }}>😢</a><span>{likes[2]} </span>
+                        <a href="" onClick={e => {
+                            e.preventDefault();
+                            handleLike('🤮');
+                        }}>🤮</a><span>{likes[3]} </span>
+                        <a href="" onClick={e => {
+                            e.preventDefault();
+                            handleLike('😎');
+                        }}>😎</a><span>{likes[4]} </span>
                     </div>
                 }
             </div>

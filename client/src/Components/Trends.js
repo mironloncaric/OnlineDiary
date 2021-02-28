@@ -5,7 +5,7 @@ export default function Trends(props) {
     return (
         <div>
             {
-                props.trends.length >0 ?
+                props.trends.length > 0 ?
                     props.trends.map((trend, key) => (
                         <Trend
                             value={trend.value}

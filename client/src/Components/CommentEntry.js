@@ -22,6 +22,10 @@ export default function CommentEntry(props) {
 
     const { user, uname } = useAuth()
 
+    React.useEffect(() => {
+        console.log("Props: ", props)
+    }, [])
+
     const handleComment = () => {
         axios.post(`${url}/comment`, {
             uid:user.uid,
@@ -79,17 +83,6 @@ export default function CommentEntry(props) {
                 <div className="spans">
                     <span><button
                         onClick={() => {
-                            if(showComment===1) {
-                                setShowComment(0)
-                            }
-                            if(showComment===0) {
-                                setShowEmoji(0)
-                                setShowComment(1)
-                            }
-                        }}
-                    ><BiComment /></button></span>
-                    <span><button
-                        onClick={() => {
                             if(showEmoji===1) {
                                 setShowEmoji(0)
                             }
@@ -126,7 +119,6 @@ export default function CommentEntry(props) {
                 </div>
             }
         </div>
-        <Comments rerender={rerender} id={props.id} />
         </>
     )
 }

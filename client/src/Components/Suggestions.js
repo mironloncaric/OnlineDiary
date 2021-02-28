@@ -27,16 +27,17 @@ export default function Suggestions() {
 
     return (
         <div className="following-div">
-            <p>{ user.uid }</p>
             <h3 style={{width:'50%'}}>Friends of Friends</h3>
             <Form.Control onChange={e => {
                 searchSuggestions(e.target.value)
             }} style={{width:'50%'}} type="text" placeholder="Search friends" />
             <div className="suggestion-container">
                 {
-                    friends.map((friend, id) => (
+                    friends.length > 0 ? friends.map((friend, id) => (
                         <FollowItem key={id} friend={friend} />
                     ))
+                    :
+                        <h4 className="no-posts">We have no suggestions at this time...<br/><br/><br/><br/></h4>
                 }
             </div>
         </div>

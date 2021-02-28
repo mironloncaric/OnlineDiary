@@ -21,6 +21,7 @@ import GroupsPage from './Pages/GroupsPage.jsx';
 import NotificationsPage from './Pages/NotificationsPage.jsx';
 import GroupItemPage from './Pages/GroupItemPage.jsx';
 import GlobalPage from './Pages/GlobalPage.jsx';
+import StatsPage from './Pages/StatsPage'
 
 import MainNavigation from './Components/MainNavigation';
 
@@ -80,6 +81,7 @@ function App(props) {
           <PrivateRoute path="/notifications" component={<NotificationsPage />} />
           <PrivateRoute path="/group/:id" component={<GroupItemPage />} />
           <PrivateRoute path="/global" component={<GlobalPage />} />
+          <PrivateRoute path="/stats" component={<StatsPage />} />
           <Route path="/join">
             <Join />
           </Route>

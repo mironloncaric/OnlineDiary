@@ -16,6 +16,7 @@ export default function NewEntryForm(props) {
     const [location, setLocation] = useState({});
     const [country, setCountry] = useState(null);
     const [username, setUsername] = useState('');
+    const [spotifyURI, setSpotifyUri] = useState('')
 
     const { user, uname, followers } = useAuth();
 
@@ -60,7 +61,8 @@ export default function NewEntryForm(props) {
             hashtags: hashtags,
             uname: uname,
             group:props.group,
-            postBody: content
+            postBody: content,
+            spotifyURI: spotifyURI,
         }).then(res => {
 	    props.setEntries(res.data);
             followers.forEach(follower => {
@@ -105,6 +107,16 @@ export default function NewEntryForm(props) {
                 rows={ 5 }
                 onChange={ e => setContent(e.target.value) }
                 value={ content }
+            />
+            <Form.Control
+                as="input"
+                style={{
+                    margin:0
+                }}
+                rows={ 1 }
+                onChange={ e => setSpotifyUri(e.target.value) }
+                value={ spotifyURI }
+                placeholder="Spotify link"
             />
             <Form.Control 
                 as="textarea" 

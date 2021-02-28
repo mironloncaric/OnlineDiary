@@ -12,17 +12,25 @@ export default function TrendsPage() {
     const { user } = useAuth()
 
     const [userTrends, setUserTrends] = useState([])
+    const [popularTrends, setPopularTrends] = useState([])
 
     const handleUserTrends = () => {
         axios.get(`${url}/trends-by-id/${user.uid}`)
             .then(res => {
-                console.log(res.data)
                 setUserTrends(res.data)
             })
     }
 
+    const handlePopularTrends = () => {
+        axios.post(`${url}/popular-trends`, {})
+             .then(res => {
+                 setPopularTrends(res.data)
+             })
+    }
+
     useEffect(() => {
         handleUserTrends()
+        handlePopularTrends()
     }, [])
 
     return (
@@ -30,8 +38,10 @@ export default function TrendsPage() {
             <SecondaryNav />
             <div className="page-container">
                 <h2>Trends:</h2>
-                <h3>Your trends:</h3>
+                <h3>Your Trends:</h3>
                 <Trends trends={userTrends} />
+              <h3>Popular Trends:</h3>
+              <Trends trends={popularTrends} />
             </div>
         </>
     )

@@ -4,6 +4,12 @@ import Comments from './Comments';
 import Entry from './Entry';
 
 export default function Comment(props) {
+
+    React.useEffect(() => {
+        console.log("These props: ", props)
+    }, [])
+
+
     return (
         <div>
             <CommentEntry
@@ -12,7 +18,7 @@ export default function Comment(props) {
                 uname={props.uname}
                 date={props.date}
                 comment={true}
-                pid={props.pid}
+                pid={props.id}
             />
         </div>
     );
