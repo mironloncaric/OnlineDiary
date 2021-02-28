@@ -58,6 +58,7 @@ function App(props) {
     <>
       <BrowserRouter>
           <MainNavigation />
+        {/*
           <div aria-atomic="true" aria-live="polite" className="notifications-container">
               <div style={{
                 bottom:0,
@@ -71,6 +72,7 @@ function App(props) {
           }
               </div>
           </div>
+          */}
         <Switch>
           <PrivateRoute path="/following" component={<FollowingPage />} />
           <PrivateRoute path="/post" component={<PostsPage />} />
